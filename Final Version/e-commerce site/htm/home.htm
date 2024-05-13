@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New England Bikes</title>
+    <link rel="stylesheet" href="../common/styles.css">
+</head>
+<body>
+    <header>
+        <h1>New England Bikes</h1>
+        <nav>
+            <ul>
+                <li><a href="home.htm">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li id="login-logout"><a href="login.html">Login</a></li>
+                <li id="order-history" style="display: none;"><a href="order_history.html">Order History</a></li>
+            </ul>
+        </nav>
+        <div class="cart-button">
+            <a href="../htm/cart.html"><img src="../images/cart_icon.png" alt="Shopping Cart"></a>
+        </div>
+    </header>
+
+    <section id="carousel">
+        <div class="slider">
+            <div class="slide">
+                <a href="../htm/products.html"><img src="../images/mountain_bike.jpg" alt="Mountain Bike"></a>
+            </div>
+            <div class="slide">
+                <a href="../htm/products.html"><img src="../images/race_bike.jpg" alt="Race Bike"></a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Lets get your perfect bike</h2>
+        <p>Here at New England Bikes we specialize in making the highest quality bikes</p>
+        <p>of all types available in the New England region.</p>
+    </section>
+
+    <script src="../common/script.js"></script>
+    <script>
+        window.onload = function() {
+            if (getCookie("loggedIn")) {
+                document.getElementById("login-logout").innerHTML = '<a href="#">Logout</a>';
+                document.getElementById("order-history").style.display = "block";
+            }
+        };
+
+        document.getElementById("login-logout").addEventListener("click", function(event) {
+            document.cookie = "loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            location.reload();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New England Bikes - Products</title>
+    <link rel="stylesheet" href="../common/styles.css">
+</head>
+<body>
+    <header>
+        <h1>New England Bikes</h1>
+        <nav>
+            <ul>
+                <li><a href="home.htm">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li id="login-logout"><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+        <div class="cart-button">
+            <a href="../htm/cart.html"><img src="../images/cart_icon.png" alt="Shopping Cart"></a>
+        </div>
+    </header>
+
+    <section id="products">
+        <h2>Our Bikes</h2>
+        <div class="product">
+            <img src="../images/mountain_bike.jpg" alt="Mountain Bike">
+            <h3>Premier Mountain Bike</h3>
+            <p>This bike will have you scaling new heights</p>
+            <span class="price">$780.00</span>
+            <label for="quantity_premier_mountain_bike">Quantity:</label>
+            <select id="quantity_premier_mountain_bike" name="quantity_premier_mountain_bike">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+            </select>
+            <button onclick="addToCart('Premier Mountain Bike', 780.00)">Add to Cart</button>
+        </div>
+
+        <div class="product">
+            <img src="../images/race_bike.jpg" alt="Race Bike">
+            <h3>Racing Bike</h3>
+            <p>Our premier racing bike</p>
+            <span class="price">$1900.00</span>
+            <label for="quantity_racing_bike">Quantity:</label>
+            <select id="quantity_racing_bike" name="quantity_racing_bike">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+            </select>
+            <button onclick="addToCart('Racing Bike', 1900.00)">Add to Cart</button>
+        </div>
+
+        <div class="product">
+            <img src="../images/race_bike.jpg" alt="Race Bike">
+            <h3>The Road Warrior</h3>
+            <p>This is our finest all-purpose bike. Great for all activites</p>
+            <span class="price">$450.00</span>
+            <label for="quantity_warrior_bike">Quantity:</label>
+            <select id="quantity_warrior_bike" name="quantity_warrior_bike">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+            </select>
+            <button onclick="addToCart('The Road Warrior', 450.00)">Add to Cart</button>
+        </div>
+
+        <div class="product">
+            <img src="../images/race_bike.jpg" alt="Race Bike">
+            <h3>Cruising Bike</h3>
+            <p>For those who enjoy a causal bike ride or racing events.</p>
+            <span class="price">$2500.00</span>
+            <label for="quantity_cruising_bike">Quantity:</label>
+            <select id="quantity_cruising_bike" name="quantity_cruising_bike">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+            </select>
+            <button onclick="addToCart('Cruising', 2500.00)">Add to Cart</button>
+        </div>
+        
+    </section>
+
+    <footer>
+        <p>&copy; New England Bikes</p>
+    </footer>
+
+    <script src="../common/script.js"></script>
+    <script>
+        window.onload = function() {
+            if (getCookie("loggedIn")) {
+                document.getElementById("login-logout").innerHTML = '<a href="#">Logout</a>';
+            }
+        };
+
+        document.getElementById("login-logout").addEventListener("click", function(event) {
+            document.cookie = "loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            location.reload();
+        });
+    </script>
+</body>
+</html>

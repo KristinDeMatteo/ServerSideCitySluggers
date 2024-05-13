@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parts List</title>
+    <link rel="stylesheet" href="../common/styles.css">
+</head>
+<body>
+    <h1>Inventory</h1>
+    <div id="usernameDisplay"></div>
+    
+    <h1>Parts List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Part 1</td>
+                <td>Description of Part 1</td>
+                <td><input type="number" value="10"></td>
+                <td>10.00</td>
+                <td><button onclick="deleteRow(this)">Delete</button></td>
+            </tr>
+            <tr>
+                <td>Part 2</td>
+                <td>Description of Part 2</td>
+                <td><input type="number" value="5"></td>
+                <td>20.00</td>
+                <td><button onclick="deleteRow(this)">Delete</button></td>
+            </tr>
+            <tr>
+                <td>Part 3</td>
+                <td>Description of Part 3</td>
+                <td><input type="number" value="8"></td>
+                <td>15.00</td>
+                <td><button onclick="deleteRow(this)">Delete</button></td>
+            </tr>
+            <!-- Add more rows for additional parts -->
+        </tbody>
+    </table>
+
+    <button onclick="addPart()">Add Part</button>
+
+    <script>
+        function deleteRow(button) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+
+        function addPart() {
+            var name = prompt("Enter the name of the part:");
+            var description = prompt("Enter the description of the part:");
+            var quantity = prompt("Enter the quantity of the part:");
+            var price = prompt("Enter the price of the part:");
+
+            // Create a new row
+            var newRow = document.createElement("tr");
+            newRow.innerHTML = `
+                <td>${name}</td>
+                <td>${description}</td>
+                <td><input type="number" value="${quantity}"></td>
+                <td>${price}</td>
+                <td><button onclick="deleteRow(this)">Delete</button></td>`;
+
+            // Append the new row to the table body
+            document.querySelector("tbody").appendChild(newRow);
+        }
+
+        function getUrlParameter(name) {
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(window.location.href);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        // Display username in the top of the page
+        var username = getUrlParameter("username");
+        if (username) {
+            document.getElementById("usernameDisplay").innerText = "Logged in as: " + username;
+        } else {
+            // Redirect to login page if username is not provided
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>

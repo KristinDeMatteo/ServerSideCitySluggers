@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New England Bikes - Thank You</title>
+    <link rel="stylesheet" href="../common/styles.css">
+</head>
+<body>
+    <header>
+        <h1>New England Bikes</h1>
+        <nav>
+            <ul>
+                <li><a href="home.htm">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+        <div class="cart-button">
+            <a href="cart.html"><img src="../images/cart_icon.png" alt="Shopping Cart"></a>
+        </div>
+    </header>
+
+    <section id="thank-you">
+        <h2>Thank You for Your Order!</h2>
+
+        <h3>Shipping Information</h3>
+        <p>Name: <span id="shipping-firstname"></span></p>
+        <p>Address: <span id="shipping-address"></span></p>
+        <p>City: <span id="shipping-city"></span></p>
+        <p>State: <span id="shipping-state"></span></p>
+        <p>Zip Code: <span id="shipping-zip"></span></p>
+
+        <h3>Billing Information</h3>
+        <p>Name: <span id="billing-firstname"></span></p>
+        <p>Address: <span id="billing-address"></span></p>
+        <p>City: <span id="billing-city"></span></p>
+        <p>State: <span id="billing-state"></span></p>
+        <p>Zip Code: <span id="billing-zip"></span></p>
+
+        <h3>Payment Information</h3>
+        <p>Card Number: <span id="card-number"></span></p>
+        <p>Cardholder Name: <span id="card-name"></span></p>
+        <p>Expiry Date: <span id="expiry-date"></span></p>
+        <p>CVV: <span id="cvv"></span></p>
+    </section>
+
+    <script src="../common/script.js"></script>
+    <script>
+        function populateThankYouPage() {
+            document.getElementById("shipping-firstname").innerText = getCookie("shipping-firstname");
+            document.getElementById("shipping-address").innerText = getCookie("shipping-address");
+            document.getElementById("shipping-city").innerText = getCookie("shipping-city");
+            document.getElementById("shipping-state").innerText = getCookie("shipping-state");
+            document.getElementById("shipping-zip").innerText = getCookie("shipping-zip");
+
+            document.getElementById("billing-firstname").innerText = getCookie("billing-firstname");
+            document.getElementById("billing-address").innerText = getCookie("billing-address");
+            document.getElementById("billing-city").innerText = getCookie("billing-city");
+            document.getElementById("billing-state").innerText = getCookie("billing-state");
+            document.getElementById("billing-zip").innerText = getCookie("billing-zip");
+
+            document.getElementById("card-number").innerText = getCookie("card-number");
+            document.getElementById("card-name").innerText = getCookie("card-name");
+            document.getElementById("expiry-date").innerText = getCookie("expiry-date");
+            document.getElementById("cvv").innerText = getCookie("cvv");
+        }
+
+        populateThankYouPage();
+    </script>
+</body>
+</html>

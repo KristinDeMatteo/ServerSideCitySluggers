@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History</title>
+    <link rel="stylesheet" href="../common/styles.css">
+</head>
+<body>
+    <header>
+        <h1>New England Bikes</h1>
+        <nav>
+            <ul>
+                <li><a href="home.htm">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="order_history.html">Order History</a></li>
+            </ul>
+        </nav>
+        <div class="cart-button">
+            <a href="../htm/cart.html"><img src="../images/cart_icon.png" alt="Shopping Cart"></a>
+        </div>
+    </header>
+
+    <section id="order-history">
+        <h2>Order History</h2>
+        <div id="order-list">
+            <!-- Order history will be displayed here -->
+        </div>
+    </section>
+
+    <!-- No need for the form to submit automatically -->
+
+    <script src="../common/script.js"></script>
+    <script>
+        // Function to fetch order history using AJAX
+        window.onload = function() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        document.getElementById('order-list').innerHTML = xhr.responseText;
+                    } else {
+                        console.error('Request failed: ' + xhr.status);
+                    }
+                }
+            };
+            xhr.open('POST', '../php/order_history.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send('action=get_order_history');
+        };
+    </script>
+</body>
+</html>

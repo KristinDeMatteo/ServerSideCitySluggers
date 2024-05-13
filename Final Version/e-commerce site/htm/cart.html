@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New England Bikes - Cart</title>
+    <link rel="stylesheet" href="../common/styles.css">
+</head>
+<body>
+    <header>
+        <h1>New England Bikes</h1>
+        <nav>
+            <ul>
+                <li><a href="home.htm">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li id="login-logout"><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+        <div class="cart-button">
+            <a href="../htm/cart.html"><img src="../images/cart_icon.png" alt="Shopping Cart"></a>
+        </div>
+    </header>
+
+    <section id="cart">
+        <h2>Shopping Cart</h2>
+        <div id="cart-items">
+            <!-- Cart items will be dynamically populated here -->
+        </div>
+        <div class="checkout-button-cart">
+            <button class="checkout-btn" onclick="redirectToCheckout()">Checkout</button>
+        </div>
+    </section>
+
+    <script src="../common/script.js"></script>
+    <script>
+        function displayCartItems() {
+            const cartItemsDiv = document.getElementById("cart-items");
+            cartItemsDiv.innerHTML = ''; // Clear previous items
+            const cart = JSON.parse(getCookie("cart") || "{}");
+            let total = 0;
+            for (const itemName in cart) {
+                const item = cart[itemName];
+                const itemTotal = item.quantity * item.price;
+                total += itemTotal;
+                cartItemsDiv.innerHTML += `
+                    <div class="cart-item" data-item-name="${itemName}">
+                        <h3>${itemName}</h3>
+                        <p>Price: $${item.price.toFixed(2)}</p>
+                        <p>Quantity: 
+                            <select onchange="updateCartItemQuantity(this)">
+                                ${generateQuantityOptions(item.quantity)}
+                            </select>
+                        </p>
+                        <p>Total: $${itemTotal.toFixed(2)}</p>
+                        <button onclick="deleteCartItem('${itemName}')" class="delete-btn">Delete</button>
+                    </div>
+                `;
+            }
+            cartItemsDiv.innerHTML += `<p>Total: $${total.toFixed(2)}</p>`;
+        }
+
+        function generateQuantityOptions(selectedQuantity) {
+            let options = '';
+            for (let i = 0; i <= 9; i++) {
+                options += `<option value="${i}" ${selectedQuantity === i ? 'selected' : ''}>${i}</option>`;
+            }
+            return options;
+        }
+
+        function updateCartItemQuantity(select) {
+            const itemName = select.parentElement.parentElement.dataset.itemName;
+            const quantity = parseInt(select.value);
+            const cart = JSON.parse(getCookie("cart") || "{}");
+            cart[itemName].quantity = quantity;
+            setCookie("cart", JSON.stringify(cart), 1);
+            displayCartItems(); // Update the cart items on the page
+        }
+
+        function deleteCartItem(itemName) {
+            const confirmDelete = confirm("Are you sure you want to delete this item from your cart?");
+            if (confirmDelete) {
+                const cart = JSON.parse(getCookie("cart") || "{}");
+                delete cart[itemName];
+                setCookie("cart", JSON.stringify(cart), 1);
+                displayCartItems(); // Update the cart items on the page
+            }
+        }
+
+        function redirectToCheckout() {
+            const loggedIn = getCookie("loggedIn");
+            if (loggedIn) {
+                window.location.href = "checkout.html";
+            } else {
+                alert("Please log in or create an account to proceed to checkout.");
+                window.location.href = "login.html";
+            }
+        }
+
+        window.onload = function() {
+            if (getCookie("loggedIn")) {
+                document.getElementById("login-logout").innerHTML = '<a href="#">Logout</a>';
+            }
+        };
+
+        document.getElementById("login-logout").addEventListener("click", function(event) {
+            document.cookie = "loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            location.reload();
+        });
+
+        displayCartItems();
+    </script>
+</body>
+</html>

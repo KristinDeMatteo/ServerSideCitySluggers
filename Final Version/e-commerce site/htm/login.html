@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../common/styles.css">
+</head>
+<body>
+    <!-- HERE is login page for the website, currently it ONLY handles logging in pre-existing accounts. If we were to put more time into the website we would
+    make the account creation functional by making it so when the user creates an account it checks if that account already exists and if not then it will add the
+    account to the CustLogin table in the database which will then allow return customers the ability to track their order on the website. -->
+    <header>
+        <h1>New England Bikes</h1>
+        <nav>
+            <ul>
+                <li><a href="home.htm">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li id="login-logout"><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+        <div class="cart-button">
+            <a href="../htm/cart.html"><img src="../images/cart_icon.png" alt="Shopping Cart"></a>
+        </div>
+    </header>
+
+    <section id="login-form">
+        <h2>Login</h2>
+        <form id="login-form" action="../php/login_check.php" method="post">
+            <label for="email">E-Mail:</label>
+            <input type="text" id="email" name="email" required><br>
+    
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+            
+            <h2></h2>
+            <button type="submit">Login</button>
+        </form>
+    </section>
+
+    <section id="create-account-form">
+        <h2>Create New Account</h2>
+        <form>
+            <label for="email">E-Mail:</label>
+            <input type="text" id="email" name="email" required><br>
+
+            <label for="new-password">Password:</label>
+            <input type="password" id="new-password" name="new-password" required><br>
+
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" name="confirm-password" required><br>
+
+            <h2></h2>
+            <button type="submit">Create Account</button>
+        </form>
+    </section>
+
+    <script src="../common/script.js"></script>
+    <script>
+        window.onload = function() {
+            if (getCookie("loggedIn")) {
+                document.getElementById("login-logout").innerHTML = '<a href="#">Logout</a>';
+            }
+        };
+
+        function validateEmail(email) {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            //username = document.getElementById("username").value;
+
+            return emailPattern.test(email);
+        }
+
+        function validatePassword(password) {
+            const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            //password = document.getElementById("password").value;
+
+            return passwordPattern.test(password);
+        }
+
+        document.getElementById("login-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            if (validateEmail(email) && validatePassword(password)) {
+                setCookie("loggedIn", email, 1);
+                alert("Logged In!");
+                location.reload();
+            } else {
+                alert("Invalid email or password.");
+            }
+        });
+
+        document.getElementById("create-account-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const email = document.getElementById("email").value;
+            const newPassword = document.getElementById("new-password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+            if (validateUsername(email) && validatePassword(newPassword) && newPassword === confirmPassword) {
+                setCookie("loggedIn", email, 1);
+                location.reload();
+            } else {
+                alert("Usernames may only start with a letter or underscore followed by zero or more alphanumeric characters");
+                alert("Passwords must match and passwords must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character @$!%*?&")
+            }
+        });
+
+        document.getElementById("login-logout").addEventListener("click", function(event) {
+            event.preventDefault();
+            document.cookie = "loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            location.reload();
+        });
+    </script>
+</body>
+</html>
